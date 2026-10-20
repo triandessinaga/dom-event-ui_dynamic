@@ -1,0 +1,1498 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Lab — Dasar Menuju Smart Retail</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════ -->
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">J</div>
+    <div class="brand-text">
+      <b>JS Lab</b>
+      <small>Dasar Teknologi Web · Pertemuan 9</small>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="flex-gap">
+      <div class="progress-bar-wrap" style="width:180px">
+        <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <span class="progress-label" id="progressLabel">Lab 1 / 11</span>
+    </div>
+    <button class="btn btn-ghost" id="themeToggle" type="button">🌙 Mode gelap</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     MAIN PAGE
+════════════════════════════════════════════════════════ -->
+<main class="page">
+
+  <!-- Lab Navigator -->
+  <nav class="card" aria-label="Navigasi lab">
+    <div class="flex-between" style="margin-bottom:12px">
+      <span class="eyebrow">NAVIGASI LAB</span>
+      <span class="muted">Klik lab untuk berpindah</span>
+    </div>
+    <div class="lab-nav" id="labNav">
+      <button class="lab-nav-btn active" data-lab="1">Lab 1<br><span style="font-weight:400">Variabel</span></button>
+      <button class="lab-nav-btn" data-lab="2">Lab 2<br><span style="font-weight:400">String</span></button>
+      <button class="lab-nav-btn" data-lab="3">Lab 3<br><span style="font-weight:400">Array & Objek</span></button>
+      <button class="lab-nav-btn" data-lab="4">Lab 4<br><span style="font-weight:400">Fungsi</span></button>
+      <button class="lab-nav-btn" data-lab="5">Lab 5<br><span style="font-weight:400">if / else</span></button>
+      <button class="lab-nav-btn" data-lab="6">Lab 6<br><span style="font-weight:400">forEach & Loop</span></button>
+      <button class="lab-nav-btn" data-lab="7">Lab 7<br><span style="font-weight:400">DOM</span></button>
+      <button class="lab-nav-btn" data-lab="8">Lab 8<br><span style="font-weight:400">Events</span></button>
+      <button class="lab-nav-btn" data-lab="9">Lab 9<br><span style="font-weight:400">Arrow & find/filter</span></button>
+      <button class="lab-nav-btn" data-lab="10">Lab 10<br><span style="font-weight:400">State & Render</span></button>
+      <button class="lab-nav-btn" data-lab="11">Lab 11<br><span style="font-weight:400">🔴 Mini Cart</span></button>
+    </div>
+  </nav>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 1 — VARIABEL & TIPE DATA
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section visible" id="lab-1">
+    <div class="section-header">
+      <span class="eyebrow">LAB 1</span>
+      <h2>Variabel & Tipe Data</h2>
+      <p>JavaScript menyimpan data dalam variabel. Ini fondasi paling pertama sebelum bisa melakukan apapun.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><code>let</code> — nilai bisa diubah (pakai untuk: total, qty, status)</li>
+        <li><code>const</code> — nilai tidak bisa diubah (pakai untuk: data produk, elemen DOM)</li>
+        <li>Tipe data: <code>string</code> (teks), <code>number</code> (angka), <code>boolean</code> (true/false)</li>
+        <li><strong>Di Smart Retail:</strong> <code>const products = [...]</code> dan <code>const state = {...}</code> menggunakan pola ini</li>
+      </ul>
+    </div>
+
+    <!-- Playground -->
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — coba ubah nilai variabel</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed1')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed1','out1')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed1" spellcheck="false">// Coba ubah nilai-nilai ini lalu klik Jalankan
+let nama = "Budi";
+let umur = 20;
+let sudahLogin = true;
+const PAJAK = 0.11;
+
+console.log("Nama:", nama);
+console.log("Umur:", umur);
+console.log("Sudah login?", sudahLogin);
+console.log("Pajak:", PAJAK);
+
+// Coba baris ini — akan error karena const tidak bisa diubah:
+// PAJAK = 0.12;</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out1"><span class="out-empty">Klik ▶ Jalankan untuk melihat output…</span></div>
+    </div>
+
+    <!-- Live Demo -->
+    <div class="two-col">
+      <div class="demo-panel">
+        <h4>🎮 Demo Interaktif — Ubah Nilai</h4>
+        <label class="muted" for="varInput">Ketik nama produk:</label>
+        <input class="lab-input mt-sm" id="varInput" placeholder="contoh: Kopi Susu" />
+        <label class="muted mt-sm" style="display:block;margin-top:10px" for="varNum">Masukkan harga:</label>
+        <input class="lab-input mt-sm" id="varNum" type="number" placeholder="contoh: 18000" />
+        <button class="btn btn-primary mt-md" onclick="runVarDemo()" style="width:100%">Lihat Variabel</button>
+      </div>
+      <div class="demo-panel">
+        <h4>📊 Hasil Variabel</h4>
+        <div id="varResult">
+          <p class="muted">Isi form lalu klik tombol…</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <span></span>
+      <button class="btn btn-primary" onclick="goLab(2)">Lanjut ke Lab 2 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 2 — STRING & TEMPLATE LITERAL
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-2">
+    <div class="section-header">
+      <span class="eyebrow">LAB 2</span>
+      <h2>String & Template Literal</h2>
+      <p>Template literal membuat penggabungan teks dan variabel jadi jauh lebih mudah dibaca.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li>Template literal menggunakan backtick <code>`...`</code> bukan tanda kutip</li>
+        <li>Variabel disisipkan dengan <code>${namaVariabel}</code></li>
+        <li><code>toLocaleString("id-ID")</code> memformat angka menjadi format Indonesia: 18000 → 18.000</li>
+        <li><strong>Di Smart Retail:</strong> fungsi <code>rupiah(n)</code> persis menggunakan ini → <code>"Rp" + n.toLocaleString("id-ID")</code></li>
+      </ul>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — template literal</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed2')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed2','out2')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed2" spellcheck="false">let nama = "Rina";
+let harga = 18000;
+
+// Template literal — pakai backtick `
+let sapa = `Halo, ${nama}! Selamat datang.`;
+console.log(sapa);
+
+// Format Rupiah — persis seperti di Smart Retail!
+function rupiah(n) {
+  return "Rp" + n.toLocaleString("id-ID");
+}
+console.log(rupiah(harga));       // Rp18.000
+console.log(rupiah(42000));       // Rp42.000
+console.log(rupiah(1000000));     // Rp1.000.000
+
+// Gabungkan semuanya
+let info = `Produk: ${nama} → ${rupiah(harga)}`;
+console.log(info);</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out2"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <div class="two-col">
+      <div class="demo-panel">
+        <h4>🎮 Demo Interaktif — Format Rupiah</h4>
+        <label class="muted" for="strNama">Nama produk:</label>
+        <input class="lab-input mt-sm" id="strNama" value="Kopi Susu" />
+        <label class="muted" for="strHarga" style="display:block;margin-top:10px">Harga (angka):</label>
+        <input class="lab-input mt-sm" id="strHarga" type="number" value="18000" />
+        <button class="btn btn-primary mt-md" onclick="runStringDemo()" style="width:100%">Generate Teks</button>
+      </div>
+      <div class="demo-panel">
+        <h4>📝 Hasil Template Literal</h4>
+        <div class="string-preview" id="strResult">Isi form lalu klik tombol…</div>
+        <div class="mt-md">
+          <p class="muted" style="font-size:12px;margin-top:8px">Angka mentah vs format Rupiah:</p>
+          <div class="string-preview" id="strCompare" style="margin-top:6px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(1)">← Lab 1</button>
+      <button class="btn btn-primary" onclick="goLab(3)">Lanjut ke Lab 3 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 3 — ARRAY & OBJEK
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-3">
+    <div class="section-header">
+      <span class="eyebrow">LAB 3</span>
+      <h2>Array & Objek</h2>
+      <p>Array menyimpan banyak data. Objek menyimpan data dengan nama properti. Di Smart Retail keduanya digabungkan: array berisi objek produk.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><strong>Array:</strong> <code>["Apel", "Jeruk"]</code> — diakses dengan indeks mulai 0</li>
+        <li><strong>Objek:</strong> <code>{nama: "Kopi", harga: 18000}</code> — diakses dengan nama properti</li>
+        <li><strong>Array of objects:</strong> <code>[{id:1, name:"Kopi"}, {id:2, ...}]</code> — persis <code>products[]</code> di Smart Retail</li>
+        <li><code>push()</code> menambah item ke array — dipakai saat item baru masuk keranjang</li>
+      </ul>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — array & objek</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed3')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed3','out3')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed3" spellcheck="false">// Array of objects — persis data di Smart Retail
+const products = [
+  { id: 1, name: "Kopi Susu",   category: "minuman", price: 18000, emoji: "☕" },
+  { id: 2, name: "Roti Cokelat",category: "makanan", price: 12000, emoji: "🥐" },
+  { id: 3, name: "Air Mineral", category: "minuman", price: 6000,  emoji: "💧" },
+];
+
+// Akses data
+console.log("Produk ke-1:", products[0].name);
+console.log("Harga produk ke-2:", products[1].price);
+console.log("Total produk:", products.length);
+
+// Tambah ke array (simulasi keranjang)
+let cart = [];
+cart.push({ id: 1, name: "Kopi Susu", price: 18000, qty: 1 });
+cart.push({ id: 2, name: "Air Mineral", price: 6000, qty: 2 });
+console.log("Isi keranjang:", cart.length, "item");
+console.log("Item pertama:", cart[0].name, "x" + cart[0].qty);</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out3"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <!-- Visual Array -->
+    <div class="two-col">
+      <div class="demo-panel">
+        <h4>📦 Visualisasi Array of Objects</h4>
+        <div class="array-list" id="arrayViz"></div>
+      </div>
+      <div class="demo-panel">
+        <h4>🗂️ Detail Objek Produk</h4>
+        <p class="muted" style="font-size:12px">Klik produk di kiri untuk lihat propertinya</p>
+        <div class="obj-grid" id="objDetail">
+          <span class="obj-key">nama</span><span class="obj-val">—</span>
+          <span class="obj-key">harga</span><span class="obj-val">—</span>
+          <span class="obj-key">kategori</span><span class="obj-val">—</span>
+          <span class="obj-key">emoji</span><span class="obj-val">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(2)">← Lab 2</button>
+      <button class="btn btn-primary" onclick="goLab(4)">Lanjut ke Lab 4 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 4 — FUNGSI
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-4">
+    <div class="section-header">
+      <span class="eyebrow">LAB 4</span>
+      <h2>Fungsi</h2>
+      <p>Fungsi adalah blok kode bernama yang bisa dipanggil kapan saja. Di Smart Retail hampir semua logika dibungkus fungsi.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><code>function namaFungsi(parameter) { return nilai; }</code></li>
+        <li>Parameter = input fungsi. Return = output fungsi.</li>
+        <li><strong>Di Smart Retail:</strong> <code>renderProducts()</code>, <code>renderCart()</code>, <code>addToCart(id)</code>, <code>showToast(msg)</code></li>
+        <li>Fungsi bisa memanggil fungsi lain — <code>addToCart()</code> memanggil <code>renderCart()</code> setelah selesai</li>
+      </ul>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — fungsi</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed4')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed4','out4')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed4" spellcheck="false">// Fungsi format Rupiah — dipakai di seluruh Smart Retail
+function rupiah(n) {
+  return "Rp" + n.toLocaleString("id-ID");
+}
+
+// Fungsi hitung subtotal item
+function subtotal(harga, qty) {
+  return harga * qty;
+}
+
+// Fungsi info produk — memanggil fungsi lain di dalamnya
+function infoProdu(nama, harga, qty) {
+  let total = subtotal(harga, qty);
+  return `${nama} × ${qty} = ${rupiah(total)}`;
+}
+
+// Coba jalankan
+console.log(rupiah(18000));
+console.log(subtotal(18000, 3));
+console.log(infoProdu("Kopi Susu", 18000, 2));
+console.log(infoProdu("Air Mineral", 6000, 3));</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out4"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <div class="two-col">
+      <div class="demo-panel">
+        <h4>🎮 Kalkulator Subtotal</h4>
+        <label class="muted" for="fnNama">Nama produk:</label>
+        <input class="lab-input mt-sm" id="fnNama" value="Kopi Susu" />
+        <label class="muted" for="fnHarga" style="display:block;margin-top:10px">Harga:</label>
+        <input class="lab-input" id="fnHarga" type="number" value="18000" />
+        <label class="muted" for="fnQty" style="display:block;margin-top:10px">Jumlah:</label>
+        <input class="lab-input" id="fnQty" type="number" value="2" min="1" />
+        <button class="btn btn-primary mt-md" onclick="runFnDemo()" style="width:100%">Hitung</button>
+      </div>
+      <div class="demo-panel">
+        <h4>📊 Hasil Fungsi</h4>
+        <div class="fn-result" id="fnResult">Isi form lalu klik Hitung…</div>
+        <div class="mt-md muted" id="fnSteps" style="font-size:12px;line-height:1.8"></div>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(3)">← Lab 3</button>
+      <button class="btn btn-primary" onclick="goLab(5)">Lanjut ke Lab 5 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 5 — IF / ELSE
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-5">
+    <div class="section-header">
+      <span class="eyebrow">LAB 5</span>
+      <h2>Kondisi — if / else</h2>
+      <p>Membuat kode mengambil keputusan berbeda tergantung kondisi data.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><code>if (kondisi) { ... } else { ... }</code></li>
+        <li>Operator perbandingan: <code>===</code> sama persis, <code>!==</code> tidak sama, <code>&gt;=</code> lebih besar sama dengan</li>
+        <li><strong>Di Smart Retail:</strong> <code>checkoutBtn.disabled = count === 0</code> dan validasi pembayaran <code>amount &lt; total</code></li>
+      </ul>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — if / else</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed5')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed5','out5')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed5" spellcheck="false">// Validasi checkout — persis di Smart Retail
+function validasiPembayaran(totalBelanja, uangBayar) {
+  if (uangBayar === 0 || uangBayar === "") {
+    return "❌ Pembayaran tidak boleh kosong.";
+  } else if (uangBayar < totalBelanja) {
+    let kurang = totalBelanja - uangBayar;
+    return "❌ Uang kurang Rp" + kurang.toLocaleString("id-ID");
+  } else {
+    let kembalian = uangBayar - totalBelanja;
+    return "✅ Sukses! Kembalian Rp" + kembalian.toLocaleString("id-ID");
+  }
+}
+
+console.log(validasiPembayaran(42000, 0));
+console.log(validasiPembayaran(42000, 40000));
+console.log(validasiPembayaran(42000, 42000));
+console.log(validasiPembayaran(42000, 50000));</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out5"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <!-- Simulasi Kasir -->
+    <div class="card">
+      <div class="section-header" style="margin-bottom:14px">
+        <h2 style="font-size:16px">🎮 Simulasi Kasir — Cek Validasi Pembayaran</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <label class="muted" for="ifTotal">Total belanja (Rp):</label>
+          <input class="lab-input mt-sm" id="ifTotal" type="number" value="42000" />
+          <label class="muted" for="ifBayar" style="display:block;margin-top:10px">Uang bayar (Rp):</label>
+          <input class="lab-input" id="ifBayar" type="number" placeholder="Masukkan jumlah" />
+          <button class="btn btn-primary mt-md" onclick="runIfDemo()" style="width:100%">Proses Pembayaran</button>
+        </div>
+        <div>
+          <h4 class="muted" style="font-size:13px;margin-bottom:10px">Hasil Validasi:</h4>
+          <div class="condition-result neutral" id="ifResult">Isi form lalu proses…</div>
+          <div class="mt-md" id="ifSteps" style="font-size:12px;color:var(--sub);line-height:1.8"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(4)">← Lab 4</button>
+      <button class="btn btn-primary" onclick="goLab(6)">Lanjut ke Lab 6 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 6 — forEach & LOOP
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-6">
+    <div class="section-header">
+      <span class="eyebrow">LAB 6</span>
+      <h2>forEach & Perulangan</h2>
+      <p>Lakukan sesuatu untuk setiap item di array tanpa menulis kode berulang.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><code>array.forEach(function(item) { ... })</code> — jalankan kode untuk tiap item</li>
+        <li>Pola akumulasi: <code>let total = 0; forEach → total += ...</code></li>
+        <li><strong>Di Smart Retail:</strong> <code>renderCart()</code> pakai <code>forEach</code> untuk membuat baris tiap item, lalu hitung total</li>
+      </ul>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — forEach</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed6')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed6','out6')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed6" spellcheck="false">let keranjang = [
+  { nama: "Kopi Susu",  harga: 18000, qty: 2 },
+  { nama: "Roti Cokelat", harga: 12000, qty: 1 },
+  { nama: "Air Mineral",  harga: 6000,  qty: 3 },
+];
+
+// Hitung total — pola akumulasi
+let totalItem  = 0;
+let totalHarga = 0;
+
+keranjang.forEach(function(item) {
+  let subtotal = item.harga * item.qty;
+  totalItem  += item.qty;
+  totalHarga += subtotal;
+  console.log(`${item.nama} × ${item.qty} = Rp${subtotal.toLocaleString("id-ID")}`);
+});
+
+console.log("─────────────────────────────");
+console.log("Total item :", totalItem);
+console.log("Total harga: Rp" + totalHarga.toLocaleString("id-ID"));</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out6"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <!-- Visual Loop -->
+    <div class="card">
+      <div class="section-header" style="margin-bottom:12px">
+        <h2 style="font-size:16px">🎮 Visualisasi forEach — Hitung Keranjang</h2>
+      </div>
+      <div class="loop-output" id="loopViz"></div>
+      <div class="loop-total">
+        <span>Total</span>
+        <span id="loopTotal" class="blue">Rp0</span>
+      </div>
+      <div class="mt-md flex-gap">
+        <button class="btn btn-primary" onclick="addLoopItem()">+ Tambah Item Acak</button>
+        <button class="btn btn-outline" onclick="resetLoop()">Reset</button>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(5)">← Lab 5</button>
+      <button class="btn btn-primary" onclick="goLab(7)">Lanjut ke Lab 7 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 7 — DOM
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-7">
+    <div class="section-header">
+      <span class="eyebrow">LAB 7</span>
+      <h2>DOM — Menyentuh Elemen HTML</h2>
+      <p>DOM adalah jembatan antara JavaScript dan tampilan di browser. Semua perubahan tampilan dilakukan lewat DOM.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><code>document.querySelector("#id")</code> — pilih satu elemen dengan id</li>
+        <li><code>element.textContent = "..."</code> — ubah teks elemen</li>
+        <li><code>element.classList.add/remove/toggle("kelas")</code> — ubah kelas CSS</li>
+        <li><code>document.createElement("div")</code> — buat elemen baru dari JavaScript</li>
+        <li><code>parent.append(child)</code> — masukkan elemen ke dalam elemen lain</li>
+        <li><strong>Di Smart Retail:</strong> shorthand <code>const $ = (sel) => document.querySelector(sel)</code> lalu semua elemen dikumpulkan di objek <code>els</code></li>
+      </ul>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — DOM manipulation</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed7')">Reset</button>
+          <button class="btn-run" onclick="runDomCode()">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed7" spellcheck="false">// Shorthand querySelector — persis di Smart Retail!
+const $ = (sel) => document.querySelector(sel);
+
+// Ubah teks
+$("#domTitle").textContent = "Judul Berhasil Diubah! 🎉";
+
+// Ubah kelas untuk mengubah warna
+$("#domTitle").classList.remove("red", "blue");
+$("#domTitle").classList.add("green");
+
+// Ubah angka counter
+let angkaSekarang = Number($("#domCounter").textContent);
+$("#domCounter").textContent = angkaSekarang + 1;
+
+// Ubah status badge
+$("#domStatus").textContent = "AKTIF ✓";
+
+console.log("DOM berhasil dimanipulasi!");</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out7"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <!-- Live DOM Target -->
+    <div class="card">
+      <div class="section-header" style="margin-bottom:14px">
+        <h2 style="font-size:16px">🎯 Elemen Target DOM — Diubah oleh JavaScript</h2>
+      </div>
+      <div class="dom-target-card" id="domTargetCard">
+        <div id="domTitle">Judul Awal</div>
+        <span id="domCounter">0</span>
+        <br>
+        <span id="domStatus" class="badge">MENUNGGU</span>
+      </div>
+      <div class="dom-controls mt-md">
+        <button class="btn btn-outline" onclick="domChangeTitle()">Ubah Judul</button>
+        <button class="btn btn-outline" onclick="domCounter()">+1 Counter</button>
+        <button class="btn btn-outline" onclick="domToggleColor()">Toggle Warna</button>
+        <button class="btn btn-outline" onclick="domHighlight()">Highlight Box</button>
+        <button class="btn btn-danger" onclick="domReset()">Reset</button>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(6)">← Lab 6</button>
+      <button class="btn btn-primary" onclick="goLab(8)">Lanjut ke Lab 8 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 8 — EVENTS
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-8">
+    <div class="section-header">
+      <span class="eyebrow">LAB 8</span>
+      <h2>Events — Membuat Halaman Bereaksi</h2>
+      <p>Event adalah "kejadian" — klik, ketik, pilih, tekan tombol keyboard. JavaScript mendengarnya lalu menjalankan kode.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><code>elemen.addEventListener("namaEvent", callback)</code></li>
+        <li>Event umum: <code>click</code>, <code>input</code>, <code>change</code>, <code>keydown</code></li>
+        <li><code>event.target.value</code> — nilai input/select yang memicu event</li>
+        <li><strong>Event Delegation:</strong> pasang listener di <em>wadah</em>, bukan di tiap tombol — karena tombol dibuat dinamis oleh <code>renderProducts()</code></li>
+        <li><code>event.target.closest("button[data-id]")</code> — cara Smart Retail menangkap klik tombol dinamis</li>
+      </ul>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — event listener</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed8')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed8','out8')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed8" spellcheck="false">// Tiga jenis event paling sering dipakai
+// 1. click — saat tombol diklik
+// 2. input — saat ketik di input field (langsung per karakter)
+// 3. change — saat pilihan select berubah (setelah selesai memilih)
+
+// Coba ketik di kolom nama di bawah dan lihat Event Log!
+console.log("Event listeners sudah terdaftar.");
+console.log("Coba klik tombol, ketik di input, atau pilih kategori di bawah.");</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out8"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <!-- Event Playground -->
+    <div class="two-col">
+      <div class="demo-panel">
+        <h4>🎮 Coba Berbagai Event</h4>
+        <label class="muted" for="evInput">Nama (event: input)</label>
+        <input class="lab-input mt-sm" id="evInput" placeholder="Ketik nama kamu…" />
+        <div class="name-preview">Halo, <strong id="evPreview">siapa?</strong> 👋</div>
+
+        <label class="muted" for="evSelect" style="display:block;margin-top:12px">Kategori (event: change)</label>
+        <select class="lab-select mt-sm" id="evSelect">
+          <option value="">— pilih kategori —</option>
+          <option value="minuman">Minuman</option>
+          <option value="makanan">Makanan</option>
+          <option value="alat">Perlengkapan</option>
+        </select>
+
+        <div class="flex-gap mt-md">
+          <button class="btn btn-primary" id="evBtn1">Klik Saya (click)</button>
+          <button class="btn btn-outline" id="evBtn2">Tombol 2</button>
+        </div>
+
+        <!-- Event Delegation Demo -->
+        <p class="muted" style="font-size:12px;margin-top:14px">Event Delegation — listener di wadah:</p>
+        <div id="evDelegation" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+          <button class="btn btn-outline" data-item="Kopi" style="font-size:12px">☕ Kopi</button>
+          <button class="btn btn-outline" data-item="Roti" style="font-size:12px">🥐 Roti</button>
+          <button class="btn btn-outline" data-item="Air" style="font-size:12px">💧 Air</button>
+        </div>
+        <p class="muted" id="evDelegResult" style="font-size:12px;margin-top:6px">Klik salah satu tombol di atas…</p>
+      </div>
+
+      <div class="demo-panel">
+        <h4>📋 Event Log</h4>
+        <div class="event-log" id="evLog">
+          <div class="event-entry">
+            <span class="event-tag" style="background:#e8f0fe;color:#174ea6">INFO</span>
+            <span>Belum ada event. Coba klik tombol atau ketik…</span>
+          </div>
+        </div>
+        <button class="btn btn-outline mt-md" onclick="clearEventLog()" style="width:100%;font-size:12px">Bersihkan Log</button>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(7)">← Lab 7</button>
+      <button class="btn btn-primary" onclick="goLab(9)">Lanjut ke Lab 9 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 9 — ARROW FUNCTION, find, filter
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-9">
+    <div class="section-header">
+      <span class="eyebrow">LAB 9</span>
+      <h2>Arrow Function, find &amp; filter</h2>
+      <p>Cara penulisan fungsi yang lebih ringkas. Wajib dipahami karena kode Smart Retail penuh dengan pola ini.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep</h3>
+      <ul>
+        <li><strong>Arrow function:</strong> <code>const fn = (x) => x * 2</code> sama dengan <code>function fn(x) { return x * 2; }</code></li>
+        <li><strong>find:</strong> <code>array.find(item => item.id === 1)</code> — kembalikan satu item yang cocok</li>
+        <li><strong>filter:</strong> <code>array.filter(item => item.category === "minuman")</code> — kembalikan array baru yang lolos syarat</li>
+        <li><strong>reduce:</strong> <code>array.reduce((acc, item) => acc + item.qty, 0)</code> — akumulasi semua item jadi satu nilai</li>
+        <li><strong>Di Smart Retail:</strong> <code>const rupiah = (n) => "Rp" + n.toLocaleString("id-ID")</code>, <code>products.find(p => p.id === id)</code>, filter produk berdasarkan pencarian & kategori</li>
+      </ul>
+    </div>
+
+    <!-- Perbandingan -->
+    <div class="card">
+      <p class="eyebrow" style="margin-bottom:10px">CARA LAMA vs CARA MODERN</p>
+      <div class="compare-grid">
+        <div class="compare-block">
+          <div class="compare-label old">❌ Cara Lama (verbose)</div>
+          <div class="compare-code">function rupiah(n) {
+  return "Rp" + n.toLocaleString("id-ID");
+}
+
+var produk = arr.find(function(p) {
+  return p.id === 1;
+});
+
+var minuman = arr.filter(function(p) {
+  return p.category === "minuman";
+});</div>
+        </div>
+        <div class="compare-block">
+          <div class="compare-label new">✅ Cara Modern (arrow function)</div>
+          <div class="compare-code">const rupiah = (n) =>
+  "Rp" + n.toLocaleString("id-ID");
+
+const produk = arr.find(
+  (p) => p.id === 1
+);
+
+const minuman = arr.filter(
+  (p) => p.category === "minuman"
+);</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — arrow, find, filter, reduce</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed9')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed9','out9')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed9" spellcheck="false">const products = [
+  { id: 1, name: "Kopi Susu",   category: "minuman", price: 18000 },
+  { id: 2, name: "Roti Cokelat",category: "makanan", price: 12000 },
+  { id: 3, name: "Air Mineral", category: "minuman", price: 6000  },
+  { id: 4, name: "Tas Belanja", category: "alat",    price: 9000  },
+];
+
+// Arrow function
+const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
+
+// find — cari satu produk berdasarkan id
+const kopiSusu = products.find((p) => p.id === 1);
+console.log("find:", kopiSusu.name);
+
+// filter — ambil semua minuman
+const minuman = products.filter((p) => p.category === "minuman");
+console.log("filter minuman:", minuman.map(p => p.name));
+
+// filter pencarian teks — persis di renderProducts()
+const keyword = "ko";
+const hasil = products.filter((p) =>
+  p.name.toLowerCase().includes(keyword.toLowerCase())
+);
+console.log(`filter "${keyword}":`, hasil.map(p => p.name));
+
+// reduce — hitung total harga
+const cart = [
+  { name: "Kopi Susu", price: 18000, qty: 2 },
+  { name: "Air Mineral", price: 6000, qty: 1 },
+];
+const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+console.log("reduce total:", rupiah(total));</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out9"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <!-- Filter Demo -->
+    <div class="card">
+      <div class="section-header" style="margin-bottom:12px">
+        <h2 style="font-size:16px">🎮 Demo find & filter Interaktif</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <label class="muted" for="findId">find — cari produk id:</label>
+          <input class="lab-input mt-sm" id="findId" type="number" value="1" min="1" max="4" />
+          <button class="btn btn-primary mt-sm" onclick="runFind()" style="width:100%">Jalankan find()</button>
+          <div class="fn-result mt-sm" id="findResult">—</div>
+        </div>
+        <div>
+          <label class="muted" for="filterKata">filter — cari teks:</label>
+          <input class="lab-input mt-sm" id="filterKata" placeholder="ketik: ko, air, roti…" />
+          <button class="btn btn-primary mt-sm" onclick="runFilter()" style="width:100%">Jalankan filter()</button>
+          <div id="filterResult" class="mt-sm" style="font-size:13px;color:var(--sub)">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(8)">← Lab 8</button>
+      <button class="btn btn-primary" onclick="goLab(10)">Lanjut ke Lab 10 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 10 — STATE & RENDER
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-10">
+    <div class="section-header">
+      <span class="eyebrow">LAB 10</span>
+      <h2>State &amp; Render — Inti Dynamic UI</h2>
+      <p>Pola paling penting dalam membangun UI yang responsif. Semua perubahan tampilan di Smart Retail mengikuti alur ini.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>📖 Konsep — Alur Wajib</h3>
+      <ul>
+        <li>🖱️ <strong>User Action</strong> — pengguna melakukan sesuatu (klik, ketik)</li>
+        <li>📦 <strong>Ubah State</strong> — data JavaScript diperbarui (<code>state.cart.push(...)</code>)</li>
+        <li>🖼️ <strong>Render</strong> — panggil fungsi render untuk update DOM (<code>renderCart()</code>)</li>
+        <li>⚠️ <strong>State TIDAK PERNAH diubah langsung dari DOM</strong> — harus lewat variabel JavaScript dulu</li>
+        <li><strong>Di Smart Retail:</strong> <code>const state = { cart:[], search:"", category:"all", darkMode:false, titleChanged:false }</code> adalah satu-satunya sumber kebenaran</li>
+      </ul>
+    </div>
+
+    <!-- State Visualizer -->
+    <div class="card">
+      <div class="section-header" style="margin-bottom:14px">
+        <h2 style="font-size:16px">🎮 Visualisasi State → DOM</h2>
+        <p class="muted" style="margin:0">Klik tombol di bawah dan amati bagaimana STATE berubah dulu, lalu DOM diperbarui</p>
+      </div>
+      <div class="state-viz">
+        <div class="state-box">
+          <h4>📦 STATE (data)</h4>
+          <pre id="stateViz">{
+  cart: [],
+  search: "",
+  darkMode: false
+}</pre>
+        </div>
+        <div class="state-arrow">→</div>
+        <div class="state-box">
+          <h4>🖼️ DOM (tampilan)</h4>
+          <pre id="domViz">cartCount : 0
+totalHarga: Rp0
+mode      : terang</pre>
+        </div>
+      </div>
+      <div class="flex-gap mt-md">
+        <button class="btn btn-primary" onclick="stateAddItem()">+ Tambah Kopi</button>
+        <button class="btn btn-primary" onclick="stateAddItem2()">+ Tambah Air</button>
+        <button class="btn btn-outline" onclick="stateToggleDark()">Toggle Dark Mode</button>
+        <button class="btn btn-danger"  onclick="stateReset()">Reset State</button>
+      </div>
+    </div>
+
+    <div class="playground">
+      <div class="playground-header">
+        <span class="playground-title">EDITOR — state + render pattern</span>
+        <div class="playground-actions">
+          <button class="btn-clear-code" onclick="clearEditor('ed10')">Reset</button>
+          <button class="btn-run" onclick="runCode('ed10','out10')">▶ Jalankan</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="ed10" spellcheck="false">// POLA: State → Render
+// Satu-satunya sumber kebenaran ada di state, bukan di DOM
+
+const state = {
+  cart: [],
+  search: "",
+  darkMode: false,
+};
+
+// Fungsi RENDER — baca state, perbarui tampilan
+function renderStatus() {
+  const totalItem  = state.cart.reduce((s, i) => s + i.qty, 0);
+  const totalHarga = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
+  console.log(`Cart: ${totalItem} item | Total: Rp${totalHarga.toLocaleString("id-ID")}`);
+  console.log("State:", JSON.stringify(state));
+}
+
+// Fungsi UBAH STATE lalu render
+function tambah(nama, harga) {
+  const ada = state.cart.find((i) => i.name === nama);
+  if (ada) {
+    ada.qty++;
+  } else {
+    state.cart.push({ name: nama, price: harga, qty: 1 });
+  }
+  renderStatus(); // selalu render setelah ubah state
+}
+
+tambah("Kopi Susu", 18000);
+tambah("Kopi Susu", 18000); // qty jadi 2
+tambah("Air Mineral", 6000);</textarea>
+      <div class="output-label">OUTPUT</div>
+      <div class="output-box" id="out10"><span class="out-empty">Klik ▶ Jalankan…</span></div>
+    </div>
+
+    <div class="flex-between">
+      <button class="btn btn-outline" onclick="goLab(9)">← Lab 9</button>
+      <button class="btn btn-primary" onclick="goLab(11)">Lanjut ke Lab 11 →</button>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       LAB 11 — MINI CART (JEMBATAN)
+  ──────────────────────────────────────────────────────── -->
+  <section class="lab-section" id="lab-11">
+    <div class="section-header">
+      <span class="eyebrow">LAB 11 — 🔴 JEMBATAN KE SMART RETAIL</span>
+      <h2>Mini Cart — Semua Konsep Digabung</h2>
+      <p>Ini versi mini dari proyek Smart Retail. Semua Lab 1–10 bekerja di sini: array, fungsi, DOM, event, state, render.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>🗺️ Peta ke Smart Retail</h3>
+      <table class="info-table" style="margin-top:6px">
+        <tr><th>Di sini (Lab 11)</th><th>Di Smart Retail (app.js)</th></tr>
+        <tr><td><code>miniProducts[]</code></td><td><code>const products = [...]</code></td></tr>
+        <tr><td><code>miniState.cart</code></td><td><code>state.cart</code></td></tr>
+        <tr><td><code>miniAddToCart(id)</code></td><td><code>addToCart(id)</code></td></tr>
+        <tr><td><code>miniRenderCart()</code></td><td><code>renderCart()</code></td></tr>
+        <tr><td>Event delegation pada <code>#miniGrid</code></td><td>Event delegation pada <code>#productGrid</code></td></tr>
+        <tr><td>Toast notifikasi</td><td><code>showToast(message)</code></td></tr>
+      </table>
+    </div>
+
+    <!-- Mini Cart App -->
+    <div class="two-col">
+      <!-- Produk -->
+      <div>
+        <div class="section-header" style="margin-bottom:10px">
+          <h2 style="font-size:15px">🛍️ Produk</h2>
+        </div>
+        <div class="mini-products" id="miniGrid"></div>
+      </div>
+
+      <!-- Keranjang -->
+      <div>
+        <div class="section-header" style="margin-bottom:10px">
+          <h2 style="font-size:15px">🛒 Keranjang</h2>
+        </div>
+        <div class="mini-cart-panel">
+          <div class="mini-cart-header">
+            <h3>Keranjang</h3>
+            <span class="mini-cart-badge" id="miniCartBadge">0 item</span>
+          </div>
+          <div class="mini-cart-list" id="miniCartList">
+            <div class="mini-cart-empty">Keranjang kosong — tambahkan produk!</div>
+          </div>
+          <div class="mini-cart-total">
+            <span>Total</span>
+            <span id="miniCartTotal" class="blue">Rp0</span>
+          </div>
+          <button class="btn btn-primary btn-wide" id="miniCheckout" disabled onclick="miniCheckout()">Checkout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kode yang digunakan -->
+    <div class="card">
+      <div class="section-header" style="margin-bottom:10px">
+        <h2 style="font-size:15px">📄 Kode di Balik Mini Cart</h2>
+        <p class="muted" style="margin:0">Ini kode JavaScript yang menggerakkan mini cart di atas — buka DevTools untuk lihat lebih lanjut</p>
+      </div>
+      <div class="playground">
+        <div class="playground-header">
+          <span class="playground-title">REFERENSI KODE — hanya baca</span>
+          <div class="playground-actions">
+            <button class="btn-run" onclick="runCode('ed11','out11')">▶ Jalankan di Console</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed11" spellcheck="false" style="min-height:200px">// ── DATA ──────────────────────────────────────
+const miniProducts = [
+  { id:1, name:"Kopi Susu",   price:18000, emoji:"☕", category:"minuman" },
+  { id:2, name:"Roti Cokelat",price:12000, emoji:"🥐", category:"makanan" },
+  { id:3, name:"Air Mineral", price:6000,  emoji:"💧", category:"minuman" },
+  { id:4, name:"Tas Belanja", price:9000,  emoji:"🛍️", category:"alat"   },
+];
+const miniState = { cart: [] };
+const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
+
+// ── FUNGSI ─────────────────────────────────────
+function miniAddToCart(id) {
+  const product  = miniProducts.find((p) => p.id === id);
+  const existing = miniState.cart.find((p) => p.id === id);
+  if (existing) existing.qty++;
+  else miniState.cart.push({ ...product, qty: 1 });
+  miniRenderCart();
+}
+
+// ── EVENT DELEGATION ───────────────────────────
+document.querySelector("#miniGrid").addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-id]");
+  if (btn) miniAddToCart(Number(btn.dataset.id));
+});
+
+console.log("Mini cart siap!");</textarea>
+        <div class="output-label">OUTPUT</div>
+        <div class="output-box" id="out11"><span class="out-empty">Klik ▶ untuk jalankan di output…</span></div>
+      </div>
+    </div>
+
+    <!-- Bridge Banner -->
+    <div class="bridge-banner">
+      <div>
+        <h2>🚀 Kamu sudah siap ke Smart Retail!</h2>
+        <p>Semua konsep di Lab 1–11 langsung dipakai di <code>starter/app.js</code>. Buka file tersebut dan selesaikan bagian TODO.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="../starter/index.html" class="btn btn-outline" style="text-decoration:none">Buka Smart Retail →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Toast Notifikasi -->
+<div class="toast" id="toast" hidden></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPT
+════════════════════════════════════════════════════════ -->
+<script>
+"use strict";
+
+// ── NAVIGATOR & PROGRESS ─────────────────────────────────
+const TOTAL_LABS = 11;
+let currentLab = 1;
+const doneSet = new Set();
+
+function goLab(n) {
+  // Tandai lab sebelumnya selesai
+  doneSet.add(currentLab);
+  currentLab = n;
+
+  // Sembunyikan semua section
+  document.querySelectorAll(".lab-section").forEach(s => s.classList.remove("visible"));
+  document.getElementById("lab-" + n).classList.add("visible");
+
+  // Update navigator buttons
+  document.querySelectorAll(".lab-nav-btn").forEach(btn => {
+    const lab = Number(btn.dataset.lab);
+    btn.classList.remove("active", "done");
+    if (lab === n) btn.classList.add("active");
+    else if (doneSet.has(lab)) btn.classList.add("done");
+  });
+
+  // Update progress bar
+  const pct = Math.round((Math.max(...[...doneSet, n]) / TOTAL_LABS) * 100);
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent = `Lab ${n} / ${TOTAL_LABS}`;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("labNav").addEventListener("click", e => {
+  const btn = e.target.closest("[data-lab]");
+  if (btn) goLab(Number(btn.dataset.lab));
+});
+
+// ── DARK MODE ─────────────────────────────────────────────
+document.getElementById("themeToggle").addEventListener("click", function() {
+  document.body.classList.toggle("dark");
+  this.textContent = document.body.classList.contains("dark") ? "☀️ Mode terang" : "🌙 Mode gelap";
+});
+
+// ── TOAST ─────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.hidden = true; }, 2400);
+}
+
+// ── SANDBOX RUNNER ────────────────────────────────────────
+// Menangkap console.log dan menampilkannya di output-box
+function runCode(editorId, outputId) {
+  const code = document.getElementById(editorId).value;
+  const box  = document.getElementById(outputId);
+  box.innerHTML = "";
+
+  const logs = [];
+  const _log   = console.log.bind(console);
+  const _warn  = console.warn.bind(console);
+  const _error = console.error.bind(console);
+  const _info  = console.info.bind(console);
+
+  function capture(type, args) {
+    const line = document.createElement("div");
+    line.className = "out-" + type;
+    line.textContent = args.map(a => {
+      if (typeof a === "object") {
+        try { return JSON.stringify(a, null, 2); } catch { return String(a); }
+      }
+      return String(a);
+    }).join(" ");
+    box.appendChild(line);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  console.log   = (...a) => { _log(...a);   capture("log",   a); };
+  console.warn  = (...a) => { _warn(...a);  capture("warn",  a); };
+  console.error = (...a) => { _error(...a); capture("error", a); };
+  console.info  = (...a) => { _info(...a);  capture("info",  a); };
+
+  try {
+    // eslint-disable-next-line no-new-func
+    new Function(code)();
+  } catch(err) {
+    capture("error", ["❌ " + err.message]);
+  } finally {
+    console.log   = _log;
+    console.warn  = _warn;
+    console.error = _error;
+    console.info  = _info;
+  }
+  if (!box.children.length) {
+    box.innerHTML = '<span class="out-empty">Tidak ada output.</span>';
+  }
+}
+
+// DOM code runner — akses elemen halaman
+function runDomCode() {
+  runCode("ed7", "out7");
+}
+
+function clearEditor(id) {
+  // Reset ke kode awal dengan reload sederhana — pertahankan konten awal
+  const original = {
+    ed1: `// Coba ubah nilai-nilai ini lalu klik Jalankan\nlet nama = "Budi";\nlet umur = 20;\nlet sudahLogin = true;\nconst PAJAK = 0.11;\n\nconsole.log("Nama:", nama);\nconsole.log("Umur:", umur);\nconsole.log("Sudah login?", sudahLogin);\nconsole.log("Pajak:", PAJAK);\n\n// Coba baris ini — akan error karena const tidak bisa diubah:\n// PAJAK = 0.12;`,
+  };
+  if (original[id]) document.getElementById(id).value = original[id];
+}
+
+// ── LAB 1 — VARIABEL DEMO ────────────────────────────────
+function runVarDemo() {
+  const nama  = document.getElementById("varInput").value || "(kosong)";
+  const harga = Number(document.getElementById("varNum").value) || 0;
+  const res   = document.getElementById("varResult");
+  res.innerHTML = `
+    <div class="obj-grid">
+      <span class="obj-key">let nama</span><span class="obj-val">"${nama}"</span>
+      <span class="obj-key">typeof</span><span class="obj-val">string</span>
+      <span class="obj-key">let harga</span><span class="obj-val">${harga}</span>
+      <span class="obj-key">typeof</span><span class="obj-val">number</span>
+      <span class="obj-key">const TAX</span><span class="obj-val">0.11 (tidak bisa diubah)</span>
+    </div>
+    <div style="margin-top:10px;font-size:13px;color:var(--sub)">Tipe data ditentukan otomatis oleh JavaScript — tidak perlu deklarasi tipe seperti di Java/C.</div>
+  `;
+}
+
+// ── LAB 2 — STRING DEMO ──────────────────────────────────
+function runStringDemo() {
+  const nama  = document.getElementById("strNama").value || "Produk";
+  const harga = Number(document.getElementById("strHarga").value) || 0;
+  const formatted = "Rp" + harga.toLocaleString("id-ID");
+  document.getElementById("strResult").textContent =
+    `${nama} → ${formatted}`;
+  document.getElementById("strCompare").textContent =
+    `Mentah: ${harga}   |   Format: ${formatted}`;
+}
+
+// ── LAB 3 — ARRAY VIZ ────────────────────────────────────
+const labProducts = [
+  { id:1, name:"Kopi Susu",   category:"minuman", price:18000, emoji:"☕" },
+  { id:2, name:"Roti Cokelat",category:"makanan", price:12000, emoji:"🥐" },
+  { id:3, name:"Air Mineral", category:"minuman", price:6000,  emoji:"💧" },
+  { id:4, name:"Tas Belanja", category:"alat",    price:9000,  emoji:"🛍️" },
+];
+
+function buildArrayViz() {
+  const cont = document.getElementById("arrayViz");
+  cont.innerHTML = "";
+  labProducts.forEach((p, i) => {
+    const row = document.createElement("div");
+    row.className = "array-item";
+    row.style.cursor = "pointer";
+    row.innerHTML = `
+      <span class="array-index">${i}</span>
+      <span style="font-size:18px">${p.emoji}</span>
+      <span style="flex:1;font-weight:600;font-size:13px">${p.name}</span>
+      <span style="font-size:12px;color:var(--sub)">id: ${p.id}</span>
+    `;
+    row.addEventListener("click", () => showObjDetail(p));
+    cont.appendChild(row);
+  });
+}
+
+function showObjDetail(p) {
+  document.getElementById("objDetail").innerHTML = `
+    <span class="obj-key">id</span>       <span class="obj-val">${p.id}</span>
+    <span class="obj-key">name</span>     <span class="obj-val">"${p.name}"</span>
+    <span class="obj-key">category</span> <span class="obj-val">"${p.category}"</span>
+    <span class="obj-key">price</span>    <span class="obj-val">${p.price}</span>
+    <span class="obj-key">emoji</span>    <span class="obj-val">"${p.emoji}"</span>
+  `;
+}
+
+// ── LAB 4 — FUNGSI DEMO ──────────────────────────────────
+function runFnDemo() {
+  const nama  = document.getElementById("fnNama").value  || "Produk";
+  const harga = Number(document.getElementById("fnHarga").value) || 0;
+  const qty   = Number(document.getElementById("fnQty").value)   || 1;
+  const sub   = harga * qty;
+  const fmt   = n => "Rp" + n.toLocaleString("id-ID");
+  document.getElementById("fnResult").textContent = `${nama} × ${qty} = ${fmt(sub)}`;
+  document.getElementById("fnSteps").innerHTML =
+    `1. <code>subtotal(${harga}, ${qty})</code> → ${sub}<br>
+     2. <code>rupiah(${sub})</code> → ${fmt(sub)}<br>
+     3. Template: <code>\`${nama} × ${qty} = ${fmt(sub)}\`</code>`;
+}
+
+// ── LAB 5 — IF/ELSE DEMO ─────────────────────────────────
+function runIfDemo() {
+  const total = Number(document.getElementById("ifTotal").value) || 0;
+  const bayar = Number(document.getElementById("ifBayar").value);
+  const el    = document.getElementById("ifResult");
+  const steps = document.getElementById("ifSteps");
+  const fmt   = n => "Rp" + n.toLocaleString("id-ID");
+
+  el.classList.remove("success", "danger", "neutral");
+  if (!document.getElementById("ifBayar").value.trim()) {
+    el.textContent = "❌ Pembayaran tidak boleh kosong.";
+    el.classList.add("danger");
+    steps.innerHTML = `Kondisi: <code>bayar === ""</code> → true → blok pertama dijalankan`;
+  } else if (bayar < total) {
+    el.textContent = `❌ Kurang ${fmt(total - bayar)}`;
+    el.classList.add("danger");
+    steps.innerHTML = `Kondisi: <code>${bayar} &lt; ${total}</code> → true → blok kedua dijalankan`;
+  } else {
+    el.textContent = `✅ Sukses! Kembalian ${fmt(bayar - total)}`;
+    el.classList.add("success");
+    steps.innerHTML = `Kondisi: <code>${bayar} &gt;= ${total}</code> → true → blok else dijalankan`;
+  }
+}
+
+// ── LAB 6 — LOOP VIZ ─────────────────────────────────────
+const loopItems = [];
+const loopNames = ["Kopi Susu","Roti Cokelat","Air Mineral","Tas Belanja"];
+const loopPrices= [18000, 12000, 6000, 9000];
+const loopEmoji = ["☕","🥐","💧","🛍️"];
+
+function renderLoopViz() {
+  const cont = document.getElementById("loopViz");
+  cont.innerHTML = "";
+  let total = 0;
+  loopItems.forEach(item => {
+    total += item.price * item.qty;
+    const row = document.createElement("div");
+    row.className = "loop-row";
+    row.innerHTML = `
+      <span>${item.emoji} <span class="name">${item.name}</span></span>
+      <span style="color:var(--sub);font-size:12px">× ${item.qty}</span>
+      <span class="price">Rp${(item.price * item.qty).toLocaleString("id-ID")}</span>
+    `;
+    cont.appendChild(row);
+  });
+  document.getElementById("loopTotal").textContent = "Rp" + total.toLocaleString("id-ID");
+}
+
+function addLoopItem() {
+  const i = Math.floor(Math.random() * 4);
+  const exist = loopItems.find(x => x.name === loopNames[i]);
+  if (exist) exist.qty++;
+  else loopItems.push({ name: loopNames[i], price: loopPrices[i], emoji: loopEmoji[i], qty: 1 });
+  renderLoopViz();
+}
+
+function resetLoop() { loopItems.length = 0; renderLoopViz(); }
+
+// ── LAB 7 — DOM CONTROLS ─────────────────────────────────
+const domColors = ["green","red","blue"];
+let domColorIdx = 0;
+
+function domChangeTitle() {
+  const titles = ["Judul Berubah! 🎉","DOM Bekerja! ✨","JavaScript Keren! 🚀","Ubah Apa Saja! 💡"];
+  const el = document.getElementById("domTitle");
+  el.textContent = titles[Math.floor(Math.random() * titles.length)];
+}
+function domCounter() {
+  const el = document.getElementById("domCounter");
+  el.textContent = Number(el.textContent) + 1;
+  document.getElementById("domStatus").textContent = "DIUBAH ✓";
+}
+function domToggleColor() {
+  const el = document.getElementById("domTitle");
+  el.classList.remove(...domColors);
+  domColorIdx = (domColorIdx + 1) % domColors.length;
+  el.classList.add(domColors[domColorIdx]);
+}
+function domHighlight() {
+  document.getElementById("domTargetCard").classList.toggle("highlighted");
+}
+function domReset() {
+  document.getElementById("domTitle").textContent    = "Judul Awal";
+  document.getElementById("domTitle").className      = "";
+  document.getElementById("domCounter").textContent  = "0";
+  document.getElementById("domStatus").textContent   = "MENUNGGU";
+  document.getElementById("domTargetCard").classList.remove("highlighted");
+  domColorIdx = 0;
+}
+
+// ── LAB 8 — EVENT LISTENERS ──────────────────────────────
+function addEventLog(type, msg) {
+  const log  = document.getElementById("evLog");
+  const entry = document.createElement("div");
+  entry.className = "event-entry";
+  entry.innerHTML = `<span class="event-tag ${type}">${type.toUpperCase()}</span><span>${msg}</span>`;
+  log.prepend(entry);
+  if (log.children.length > 20) log.removeChild(log.lastChild);
+}
+function clearEventLog() {
+  document.getElementById("evLog").innerHTML =
+    '<div class="event-entry"><span class="event-tag" style="background:#e8f0fe;color:#174ea6">INFO</span><span>Log dibersihkan.</span></div>';
+}
+
+document.getElementById("evInput").addEventListener("input", e => {
+  const val = e.target.value;
+  document.getElementById("evPreview").textContent = val || "siapa?";
+  addEventLog("input", `nameInput → "${val}"`);
+});
+
+document.getElementById("evSelect").addEventListener("change", e => {
+  addEventLog("change", `categorySelect → "${e.target.value}"`);
+});
+
+document.getElementById("evBtn1").addEventListener("click", () => {
+  addEventLog("click", "Tombol #evBtn1 diklik");
+});
+document.getElementById("evBtn2").addEventListener("click", () => {
+  addEventLog("click", "Tombol #evBtn2 diklik");
+});
+
+// Event Delegation
+document.getElementById("evDelegation").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-item]");
+  if (!btn) return;
+  const item = btn.dataset.item;
+  document.getElementById("evDelegResult").textContent =
+    `✅ event.target.closest() menangkap klik: "${item}"`;
+  addEventLog("click", `delegation → data-item="${item}"`);
+});
+
+document.addEventListener("keydown", e => {
+  if (document.getElementById("lab-8").classList.contains("visible")) {
+    addEventLog("key", `keydown → "${e.key}"`);
+  }
+});
+
+// ── LAB 9 — find & filter DEMO ───────────────────────────
+function runFind() {
+  const id  = Number(document.getElementById("findId").value);
+  const res = labProducts.find(p => p.id === id);
+  document.getElementById("findResult").textContent =
+    res ? `${res.emoji} ${res.name} — Rp${res.price.toLocaleString("id-ID")}` : "❌ Tidak ditemukan";
+}
+
+function runFilter() {
+  const kata = document.getElementById("filterKata").value.toLowerCase();
+  const hasil = labProducts.filter(p => p.name.toLowerCase().includes(kata));
+  const el = document.getElementById("filterResult");
+  if (!kata) { el.textContent = "Ketik dulu kata kuncinya…"; return; }
+  el.innerHTML = hasil.length
+    ? hasil.map(p => `<span class="badge" style="margin:2px">${p.emoji} ${p.name}</span>`).join(" ")
+    : '<span style="color:var(--red)">Tidak ada yang cocok.</span>';
+}
+
+// ── LAB 10 — STATE VISUALIZER ────────────────────────────
+const vizState = { cart: [], darkMode: false };
+
+function updateViz() {
+  const count = vizState.cart.reduce((s,i) => s + i.qty, 0);
+  const total = vizState.cart.reduce((s,i) => s + i.price * i.qty, 0);
+  document.getElementById("stateViz").textContent =
+    `{\n  cart: [${vizState.cart.map(i=>`{${i.name}×${i.qty}}`).join(", ")}],\n  search: "",\n  darkMode: ${vizState.darkMode}\n}`;
+  document.getElementById("domViz").textContent =
+    `cartCount : ${count}\ntotalHarga: Rp${total.toLocaleString("id-ID")}\nmode      : ${vizState.darkMode ? "gelap" : "terang"}`;
+}
+
+function stateAddItem() {
+  const found = vizState.cart.find(i => i.name === "Kopi Susu");
+  if (found) found.qty++;
+  else vizState.cart.push({ name:"Kopi Susu", price:18000, qty:1 });
+  updateViz();
+}
+function stateAddItem2() {
+  const found = vizState.cart.find(i => i.name === "Air Mineral");
+  if (found) found.qty++;
+  else vizState.cart.push({ name:"Air Mineral", price:6000, qty:1 });
+  updateViz();
+}
+function stateToggleDark() {
+  vizState.darkMode = !vizState.darkMode;
+  updateViz();
+}
+function stateReset() {
+  vizState.cart = []; vizState.darkMode = false;
+  updateViz();
+}
+
+// ── LAB 11 — MINI CART ───────────────────────────────────
+const miniProducts = [
+  { id:1, name:"Kopi Susu",   price:18000, emoji:"☕", category:"minuman" },
+  { id:2, name:"Roti Cokelat",price:12000, emoji:"🥐", category:"makanan" },
+  { id:3, name:"Air Mineral", price:6000,  emoji:"💧", category:"minuman" },
+  { id:4, name:"Tas Belanja", price:9000,  emoji:"🛍️", category:"alat"   },
+];
+const miniState = { cart: [] };
+const fmt = n => "Rp" + n.toLocaleString("id-ID");
+
+function miniRenderProducts() {
+  const grid = document.getElementById("miniGrid");
+  grid.innerHTML = "";
+  miniProducts.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "mini-product";
+    card.innerHTML = `
+      <div class="emoji">${p.emoji}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-cat">${p.category}</div>
+      <div class="prod-price">${fmt(p.price)}</div>
+      <button class="btn-add" data-id="${p.id}">+ Tambah</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function miniRenderCart() {
+  const count = miniState.cart.reduce((s,i) => s+i.qty, 0);
+  const total = miniState.cart.reduce((s,i) => s+i.price*i.qty, 0);
+  document.getElementById("miniCartBadge").textContent = count + " item";
+  document.getElementById("miniCartTotal").textContent = fmt(total);
+  document.getElementById("miniCheckout").disabled = count === 0;
+
+  const list = document.getElementById("miniCartList");
+  list.innerHTML = "";
+  if (!count) {
+    list.innerHTML = '<div class="mini-cart-empty">Keranjang kosong — tambahkan produk!</div>';
+    return;
+  }
+  miniState.cart.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "mini-cart-row";
+    row.innerHTML = `
+      <span>${item.emoji} ${item.name}</span>
+      <div class="qty-ctrl">
+        <button class="qty-btn" data-action="minus" data-id="${item.id}">−</button>
+        <span>${item.qty}</span>
+        <button class="qty-btn" data-action="plus"  data-id="${item.id}">+</button>
+      </div>
+      <span style="font-weight:700;color:var(--blue)">${fmt(item.price*item.qty)}</span>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function miniAddToCart(id) {
+  const product  = miniProducts.find(p => p.id === id);
+  const existing = miniState.cart.find(p => p.id === id);
+  if (existing) existing.qty++;
+  else miniState.cart.push({ ...product, qty: 1 });
+  miniRenderCart();
+  showToast(`${product.emoji} ${product.name} ditambahkan!`);
+}
+
+function miniChangeQty(id, delta) {
+  const item = miniState.cart.find(p => p.id === id);
+  if (!item) return;
+  item.qty += delta;
+  miniState.cart = miniState.cart.filter(p => p.qty > 0);
+  miniRenderCart();
+}
+
+function miniCheckout() {
+  const total = miniState.cart.reduce((s,i) => s+i.price*i.qty, 0);
+  miniState.cart = [];
+  miniRenderCart();
+  showToast(`✅ Checkout berhasil! Total ${fmt(total)}`);
+}
+
+// Event Delegation — grid produk
+document.getElementById("miniGrid").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-id]");
+  if (btn) miniAddToCart(Number(btn.dataset.id));
+});
+
+// Event Delegation — qty di keranjang
+document.getElementById("miniCartList").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+  miniChangeQty(Number(btn.dataset.id), btn.dataset.action === "plus" ? 1 : -1);
+});
+
+// ── INISIALISASI ─────────────────────────────────────────
+buildArrayViz();
+renderLoopViz();
+updateViz();
+miniRenderProducts();
+miniRenderCart();
+</script>
+</body>
+</html>
