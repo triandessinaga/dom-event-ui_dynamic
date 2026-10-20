@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart Retail | DOM Quest</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">S</span>
+        <div><b>Smart Retail</b><small>DOM Quest • Pertemuan 9</small></div>
+      </div>
+      <div class="right">
+        <span class="status">● Demo offline</span><button id="themeBtn" class="ghost" type="button" aria-pressed="false">🌙 Mode gelap</button
+        ><button id="cartBtn" class="cart-btn" type="button">🛒 Keranjang <span id="cartCount" class="counter">0</span></button>
+      </div>
+    </header>
+    <main class="page">
+      <section class="hero">
+        <div>
+          <span class="eyebrow">DASAR TEKNOLOGI WEB · SUB-CPMK 3.1</span>
+          <h1 id="mainTitle">Selamatkan Toko dari Kekacauan!</h1>
+          <p>Belajar DOM, event, state dan rendering dengan membangun UI toko yang benar-benar merespons pengguna.</p>
+          <div class="chips"><span>🔎 DOM Detective</span><span>⚡ Event Reactor</span><span>🧠 State Master</span><span>🐞 Debug & Fix</span></div>
+        </div>
+        <div class="hero-art">
+          <div class="hero-art-title">USER ACTION → STATE → UI</div>
+          <img src="../assets/dom-events-illustration.png" alt="Diagram DOM dan event mengubah tampilan web" />
+        </div>
+      </section>
+      <section class="kpis">
+        <article class="kpi"><span>Produk tersedia</span><strong id="productCount">4</strong><small>Render dari array JavaScript</small></article>
+        <article class="kpi"><span>Isi keranjang</span><strong id="itemsKpi">0</strong><small>Terbarui saat tambah/kurangi</small></article>
+        <article class="kpi"><span>Total transaksi</span><strong id="totalKpi">Rp0</strong><small>Berubah mengikuti state</small></article>
+        <article class="kpi"><span>Status toko</span><strong class="green">ONLINE</strong><small>DOM hidup di browser</small></article>
+      </section>
+      <section class="content">
+        <div class="shop">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">MISSION 1–4</p>
+              <h2>Etalase Produk</h2>
+              <p>Gunakan pencarian, filter, dan tombol tambah keranjang.</p>
+            </div>
+            <div class="filters">
+              <label class="sr" for="searchInput">Cari produk</label><input id="searchInput" placeholder="Cari produk..." autocomplete="off" /><label class="sr" for="categorySelect">Kategori</label
+              ><select id="categorySelect">
+                <option value="all">Semua kategori</option>
+                <option value="minuman">Minuman</option>
+                <option value="makanan">Makanan</option>
+                <option value="alat">Perlengkapan</option>
+              </select>
+            </div>
+          </div>
+          <div id="productGrid" class="product-grid" aria-live="polite"></div>
+          <p id="emptyState" class="empty" hidden>Tidak ada produk yang cocok. Ubah pencarian/filter.</p>
+        </div>
+        <aside class="sidebar">
+          <div class="panel">
+            <div class="panel-head">
+              <h2>🛒 Keranjang</h2>
+              <span id="cartBadge" class="tag">0 item</span>
+            </div>
+            <div id="cartList" class="cart-list"><p class="muted">Keranjang masih kosong.</p></div>
+            <div class="bill"><span>Total</span><strong id="cartTotal">Rp0</strong></div>
+            <button id="checkoutBtn" class="primary wide" type="button" disabled>Checkout</button>
+            <p class="hint">Klik produk → state berubah → UI dirender ulang.</p>
+          </div>
+          <div class="panel">
+            <h3>🎯 Live DOM Lab</h3>
+            <p>Ketikan nama lalu lihat preview berubah secara langsung.</p>
+            <label for="nameInput">Nama kasir</label><input id="nameInput" placeholder="Ketik nama Anda" />
+            <div class="preview">Halo, <strong id="namePreview">Kasir!</strong> 👋</div>
+            <button id="renameBtn" class="outline" type="button">Ubah Judul Toko</button>
+          </div>
+        </aside>
+      </section>
+      <section class="challenge">
+        <div>
+          <p class="eyebrow">FINAL BOSS</p>
+          <h2>Bisakah kamu menjelaskan setiap perubahan UI?</h2>
+          <p>Periksa Elements + Console (F12), jelaskan selector, event, state, render, dan validasinya.</p>
+        </div>
+        <button id="resetBtn" class="outline" type="button">↻ Reset Demo</button>
+      </section>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <div id="checkoutModal" class="modal-backdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button id="closeModalBtn" class="close" type="button" aria-label="Tutup dialog">×</button><span class="eyebrow">SIMULASI POS</span>
+        <h2 id="modalTitle">Konfirmasi Checkout</h2>
+        <p>Periksa total belanja sebelum menyelesaikan transaksi.</p>
+        <div class="bill large"><span>Total pembayaran</span><strong id="modalTotal">Rp0</strong></div>
+        <label for="paymentInput">Jumlah pembayaran (Rp)</label><input id="paymentInput" type="number" min="0" step="1000" placeholder="Masukkan jumlah pembayaran" />
+        <p id="paymentError" class="error" aria-live="polite"></p>
+        <button id="payBtn" class="primary wide" type="button">Selesaikan Transaksi</button>
+      </section>
+    </div>
+    <footer>UPH Medan • Praktikum Dasar Teknologi Web • Vanilla HTML, CSS & JavaScript (tanpa backend)</footer>
+    <script src="app.js" defer></script>
+  </body>
+</html>
